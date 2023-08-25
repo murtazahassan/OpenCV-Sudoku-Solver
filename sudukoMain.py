@@ -8,7 +8,7 @@ import sudukoSolver
 pathImage = "Resources/1.jpg"
 heightImg = 450
 widthImg = 450
-model = intializePredectionModel()  # LOAD THE CNN MODEL
+model = intializePredictionModel()  # LOAD THE CNN MODEL
 ########################################################################
 
 
@@ -43,7 +43,7 @@ if biggest.size != 0:
     boxes = splitBoxes(imgWarpColored)
     print(len(boxes))
     # cv2.imshow("Sample",boxes[65])
-    numbers = getPredection(boxes, model)
+    numbers = getPrediction(boxes, model)
     print(numbers)
     imgDetectedDigits = displayNumbers(imgDetectedDigits, numbers, color=(255, 0, 255))
     numbers = np.asarray(numbers)
