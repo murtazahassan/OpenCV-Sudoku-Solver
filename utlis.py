@@ -4,7 +4,7 @@ from tensorflow.keras.models import load_model
 
 
 #### READ THE MODEL WEIGHTS
-def intializePredectionModel():
+def intializePredictionModel():
     model = load_model('Resources/myModel.h5')
     return model
 
@@ -57,25 +57,26 @@ def splitBoxes(img):
 
 
 #### 4 - GET PREDECTIONS ON ALL IMAGES
-def getPredection(boxes,model):
+def getPrediction(boxes,model):
     result = []
     for image in boxes:
         ## PREPARE IMAGE
         img = np.asarray(image)
-        img = img[4:img.shape[0] - 4, 4:img.shape[1] -4]
+        img = img[4:img.shape[0] - 4, 4:img.shape[1] - 4]
         img = cv2.resize(img, (28, 28))
         img = img / 255
         img = img.reshape(1, 28, 28, 1)
         ## GET PREDICTION
         predictions = model.predict(img)
-        classIndex = model.predict_classes(img)
-        probabilityValue = np.amax(predictions)
+        classIndex = np.argmax(predictions, axis=1)
+        probabilityValue = np.amax(predictions, axis=1)
         ## SAVE TO RESULT
         if probabilityValue > 0.8:
             result.append(classIndex[0])
         else:
             result.append(0)
     return result
+
 
 
 #### 6 -  TO DISPLAY THE SOLUTION ON THE IMAGE
